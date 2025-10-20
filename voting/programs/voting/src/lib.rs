@@ -9,7 +9,7 @@ const COMP_DEF_OFFSET_INIT_MULTI_OPTION_VOTE_STATS: u32 = comp_def_offset("init_
 const COMP_DEF_OFFSET_VOTE_MULTI_OPTION: u32 = comp_def_offset("vote_multi_option");
 const COMP_DEF_OFFSET_REVEAL_MULTI_OPTION: u32 = comp_def_offset("reveal_multi_option_result");
 
-declare_id!("DZDFeQuWe8ULjVUjhY7qvPMHo4D2h8YCetv4VwwwE96X");
+declare_id!("9ni6K5spatf7vob9BbTUCUqNTDV4EJVjQFNuJSE8MZkj");
 
 #[arcium_program]
 pub mod voting {
@@ -295,7 +295,7 @@ pub mod voting {
 
         let args = vec![
             Argument::PlaintextU128(nonce),
-            Argument::PlaintextU128(ctx.accounts.poll_acc.num_options as u128),
+            Argument::PlaintextU8(ctx.accounts.poll_acc.num_options),
         ];
 
         ctx.accounts.sign_pda_account.bump = ctx.bumps.sign_pda_account;

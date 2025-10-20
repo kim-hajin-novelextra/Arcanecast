@@ -46,9 +46,8 @@ mod circuits {
     #[instruction]
     pub fn init_multi_option_vote_stats(
         mxe: Mxe,
-        num_options_ctxt: Enc<Mxe, u8>,
+        num_options: u8,
     ) -> Enc<Mxe, MultiOptionVoteStats> {
-        let num_options = num_options_ctxt.to_arcis();
         let vote_stats = MultiOptionVoteStats {
             option_counts: [0, 0, 0, 0],
             num_options,
