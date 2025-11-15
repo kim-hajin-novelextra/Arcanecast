@@ -6,7 +6,7 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ArcaneCast - Confidential Voting on Solana",
+  title: "VeiledCasts- Confidential Voting on Solana",
   description:
     "Create and participate in confidential polls with end-to-end encryption powered by Arcium MPC on Solana",
 };

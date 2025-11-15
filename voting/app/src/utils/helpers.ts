@@ -8,22 +8,45 @@ import {
   getExecutingPoolAccAddress,
   getCompDefAccAddress,
   getClusterAccAddress,
+  getFeePoolAccAddress,
+  getClockAccAddress,
+  getArciumProgAddress,
 } from "@arcium-hq/client";
 import {
   VOTING_PROGRAM_ID,
   CLUSTER_OFFSET,
-  ARCIUM_PROGRAM_ID,
-  ARCIUM_FEE_POOL_ACCOUNT,
-  ARCIUM_CLOCK_ACCOUNT,
 } from "@/config/constants";
 
 const SIGNER_PDA_SEED = "SignerAccount";
 
 /**
+ * Manually compute comp def offset for custom v2 instructions
+ * Uses the same algorithm as comp_def_offset! macro in Rust
+ */
+function computeCompDefOffset(name: string): number {
+  // Simple hash function matching the Rust macro behavior
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = ((hash << 5) - hash) + name.charCodeAt(i);
+    hash = hash & hash; // Convert to 32-bit integer
+  }
+  return Math.abs(hash);
+}
+
+/**
  * Get computation definition offset for an encrypted instruction
  */
 export function getCompDefOffset(instructionName: string): Buffer {
-  return Buffer.from(getCompDefAccOffset(instructionName));
+  // Try the Arcium client library first for standard instructions
+  try {
+    return Buffer.from(getCompDefAccOffset(instructionName));
+  } catch (e) {
+    // Fall back to manual computation for v2 instructions
+    const offset = computeCompDefOffset(instructionName);
+    const buffer = Buffer.alloc(4);
+    buffer.writeUInt32LE(offset, 0);
+    return buffer;
+  }
 }
 
 /**
@@ -54,10 +77,10 @@ export function deriveArciumAccounts(
     ),
     compDefAccount: getCompDefAccAddress(VOTING_PROGRAM_ID, compDefOffset),
     clusterAccount: getClusterAccAddress(CLUSTER_OFFSET),
-    poolAccount: ARCIUM_FEE_POOL_ACCOUNT,
-    clockAccount: ARCIUM_CLOCK_ACCOUNT,
+    poolAccount: getFeePoolAccAddress(),
+    clockAccount: getClockAccAddress(),
     systemProgram: SystemProgram.programId,
-    arciumProgram: ARCIUM_PROGRAM_ID,
+    arciumProgram: getArciumProgAddress(),
   };
 }
 

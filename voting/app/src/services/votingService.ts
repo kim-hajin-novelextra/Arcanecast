@@ -24,7 +24,7 @@ import { hasVoted, saveVote, getVote } from "@/utils/voteStorage";
 
 // Import TypeScript type and JSON IDL
 import { Voting } from "@/types/voting";
-import VotingIDL from "../../target/types/voting.json";
+import VotingIDL from "@/idl/voting.json";
 
 // Database API helpers
 async function checkVoteEligibility(pollId: string, voterWallet: string): Promise<boolean> {
@@ -113,7 +113,10 @@ export class VotingService {
     this.provider = new AnchorProvider(connection, wallet, {
       commitment: "confirmed",
     });
-    this.program = new Program<Voting>(VotingIDL as Voting, this.provider);
+    this.program = new Program<Voting>(
+      VotingIDL as unknown as Voting,
+      this.provider
+    );
   }
 
   // NOTE: Arcium initialization (MXE + comp defs) must be done ONCE via

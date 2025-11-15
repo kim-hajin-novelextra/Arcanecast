@@ -15,36 +15,43 @@ export default function DAOPage() {
   const { connected } = useWallet();
   const [activeSection, setActiveSection] = useState<Section>('nomination');
   const [showProposeModal, setShowProposeModal] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handlePollCreated = () => {
+    setRefreshKey(prev => prev + 1); // Trigger refresh
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900">
-      {/* Header Navigation */}
-      <header className="border-b border-purple-500/20 backdrop-blur-sm sticky top-0 z-50 bg-gray-900/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950 to-black">
+      {/* Header */}
+      <header className="border-b border-purple-500/20 backdrop-blur-sm sticky top-0 z-50 bg-black/50">
+        <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-8">
-              <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                <div className="text-3xl">🔮</div>
+              <Link href="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity">
                 <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-                    ArcaneCast
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    VeiledCasts
                   </h1>
+                  <p className="text-sm text-gray-300 font-medium">
+                    Confidential Voting Powered by Arcium
+                  </p>
                 </div>
               </Link>
               
-              <nav className="hidden md:flex items-center gap-6">
-                <Link 
-                  href="/"
-                  className="text-sm font-medium text-gray-400 hover:text-purple-300 transition-colors"
-                >
-                  Polls
-                </Link>
+              {/* Navigation */}
+              <nav className="hidden md:flex items-center gap-8">
                 <Link 
                   href="/dao"
-                  className="text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-2"
+                  className="text-lg font-bold text-purple-400 hover:text-purple-300 transition-colors"
                 >
-                  <span>🏛️</span>
-                  <span>DAO Governance</span>
+                  DAO Governance
+                </Link>
+                <Link 
+                  href="/"
+                  className="text-lg font-bold text-gray-300 hover:text-purple-300 transition-colors"
+                >
+                  Opinions
                 </Link>
               </nav>
             </div>
@@ -122,7 +129,7 @@ export default function DAOPage() {
 
         {/* How It Works */}
         <div className="mb-8 bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/30 rounded-lg p-6 backdrop-blur-sm">
-          <h3 className="text-lg font-semibold text-white mb-3">📖 How DAO Voting Works</h3>
+          <h3 className="text-lg font-semibold text-white mb-3">📖 How it Works</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-300">
             <div>
               <span className="text-purple-400 font-semibold">1. Nomination:</span> Propose polls or select up to 5 proposals per week. Top 5 most selected advance to voting.
@@ -138,7 +145,7 @@ export default function DAOPage() {
 
         {/* Section Content */}
         <div className="mt-8">
-          {activeSection === 'nomination' && <NominationSection />}
+          {activeSection === 'nomination' && <NominationSection key={refreshKey} />}
           {activeSection === 'voting' && <VotingSection />}
           {activeSection === 'completed' && <CompletedSection />}
         </div>
@@ -146,8 +153,38 @@ export default function DAOPage() {
 
       {/* Propose Poll Modal */}
       {showProposeModal && (
-        <ProposePollModal onClose={() => setShowProposeModal(false)} />
+        <ProposePollModal 
+          onClose={() => setShowProposeModal(false)} 
+          onSuccess={handlePollCreated}
+        />
       )}
+
+      {/* Footer */}
+      <footer className="border-t border-purple-500/20 mt-16 py-8">
+        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">
+          <p className="mb-2">
+            Built with{" "}
+            <span className="text-purple-400 font-semibold">Arcium</span> •
+            Powered by{" "}
+            <span className="text-pink-400 font-semibold">Solana</span>
+          </p>
+          <p className="text-xs text-gray-500 mb-2">
+            Your votes are encrypted end-to-end and processed via secure
+            multi-party computation
+          </p>
+          <p className="text-xs text-gray-500">
+            Created by{" "}
+            <a 
+              href="https://x.com/EtherPhantasm" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-purple-400 hover:text-purple-300 font-semibold transition-colors"
+            >
+              EtherPhantasm
+            </a>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

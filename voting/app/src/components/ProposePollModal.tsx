@@ -6,9 +6,10 @@ import toast from 'react-hot-toast';
 
 interface ProposePollModalProps {
   onClose: () => void;
+  onSuccess?: () => void;
 }
 
-export default function ProposePollModal({ onClose }: ProposePollModalProps) {
+export default function ProposePollModal({ onClose, onSuccess }: ProposePollModalProps) {
   const { publicKey } = useWallet();
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
@@ -82,6 +83,7 @@ export default function ProposePollModal({ onClose }: ProposePollModalProps) {
 
       const data = await response.json();
       toast.success(`Poll created! +5 points`);
+      onSuccess?.(); // Trigger refresh
       onClose();
     } catch (error: any) {
       console.error('Error creating poll:', error);

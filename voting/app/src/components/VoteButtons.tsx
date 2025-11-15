@@ -12,9 +12,10 @@ import { hasVoted as checkHasVoted, getVote as getStoredVote, saveVote as saveVo
 interface VoteButtonsProps {
   poll: PollAccount & { publicKey: PublicKey };
   onVoteCast?: () => void;
+  isRevealed?: boolean;
 }
 
-export function VoteButtons({ poll, onVoteCast }: VoteButtonsProps) {
+export function VoteButtons({ poll, onVoteCast, isRevealed = false }: VoteButtonsProps) {
   const { connection } = useConnection();
   const wallet = useAnchorWallet();
   const { cipher, clientPublicKey, isReady } = useArcium();
@@ -44,13 +45,13 @@ export function VoteButtons({ poll, onVoteCast }: VoteButtonsProps) {
     // Check if already voted
     if (hasVoted) {
       const existingVote = getStoredVote(poll.authority.toString(), poll.id);
-      const voteType = existingVote?.vote === "yes" ? "YES" : "NO";
+      const voteType = existingVote?.vote === "yes" ? "AGREE" : "DISAGREE";
       toast.error(`You have already voted ${voteType} on this poll`);
       return;
     }
 
     const toastId = toast.loading(
-      choice ? "Casting YES vote..." : "Casting NO vote..."
+      choice ? "Casting AGREE vote..." : "Casting DISAGREE vote..."
     );
 
     try {
@@ -93,7 +94,7 @@ export function VoteButtons({ poll, onVoteCast }: VoteButtonsProps) {
       const explorerUrl = `https://explorer.solana.com/tx/${signature}?cluster=devnet`;
       toast.success(
         <div>
-          <p>{choice ? "YES" : "NO"} vote confirmed! Your vote is encrypted onchain.</p>
+          <p>{choice ? "AGREE" : "DISAGREE"} vote confirmed! Your vote is encrypted onchain.</p>
           <a href={explorerUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm">
             View Transaction
           </a>
@@ -114,16 +115,21 @@ export function VoteButtons({ poll, onVoteCast }: VoteButtonsProps) {
 
   const isVoting = voteState !== null;
 
+  // Don't show buttons if poll is revealed
+  if (isRevealed) {
+    return null;
+  }
+
   if (hasVoted) {
     return (
-      <div className="p-6 bg-green-500/10 border border-green-500/30 rounded-xl">
+      <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
-            <span className="text-2xl">✓</span>
+          <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-400/40">
+            <span className="text-emerald-400 font-bold">✓</span>
           </div>
           <div>
-            <p className="font-semibold text-green-400">Vote Cast Successfully</p>
-            <p className="text-sm text-gray-400">
+            <p className="font-semibold text-emerald-300 text-sm">Vote Cast Successfully</p>
+            <p className="text-xs text-gray-400">
               Your encrypted vote has been recorded
             </p>
           </div>
@@ -133,28 +139,28 @@ export function VoteButtons({ poll, onVoteCast }: VoteButtonsProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Show if user has already voted */}
       {hasVoted && userVote !== null && (
-        <div className="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
-          <p className="text-sm text-purple-300">
-            ✅ You voted <strong>{userVote ? "YES" : "NO"}</strong> on this poll
+        <div className="p-2.5 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+          <p className="text-xs text-purple-300">
+            You voted <strong>{userVote ? "AGREE" : "DISAGREE"}</strong> on this poll
           </p>
         </div>
       )}
 
       {isVoting && voteState && (
-        <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
+        <div className="p-4 bg-gradient-to-r from-indigo-500/15 to-blue-500/15 border border-indigo-400/30 rounded-xl">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 border-2 border-blue-400/30 border-t-blue-400 rounded-full animate-spin" />
-            <div>
-              <p className="text-sm font-medium text-blue-400">
-                {voteState.status === "encrypting" && "🔐 Encrypting your vote..."}
-                {voteState.status === "queued" && "📤 Submitting to blockchain..."}
-                {voteState.status === "processing" && "⚙️ Secure computation in progress..."}
+            <div className="w-6 h-6 border-2 border-indigo-300/40 border-t-indigo-300 rounded-full animate-spin" />
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-indigo-300">
+                {voteState.status === "encrypting" && "Encrypting your vote..."}
+                {voteState.status === "queued" && "Submitting to blockchain..."}
+                {voteState.status === "processing" && "Secure computation in progress..."}
               </p>
-              <p className="text-xs text-gray-400 mt-1">
-                This ensures your vote remains completely confidential
+              <p className="text-xs text-gray-400 mt-0.5">
+                Ensuring complete confidentiality
               </p>
             </div>
           </div>
@@ -165,25 +171,23 @@ export function VoteButtons({ poll, onVoteCast }: VoteButtonsProps) {
         <button
           onClick={() => handleVote(true)}
           disabled={!isReady || isVoting || !wallet}
-          className="py-4 px-6 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed rounded-xl font-semibold text-white shadow-lg hover:shadow-green-500/50 transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100"
+          className="py-3 px-4 bg-gradient-to-br from-purple-700 to-purple-800 hover:from-purple-600 hover:to-purple-700 disabled:from-gray-700 disabled:to-gray-800 disabled:cursor-not-allowed rounded-xl font-bold text-white text-sm shadow-lg hover:shadow-purple-500/40 transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100 border border-purple-500/30 disabled:border-gray-600"
         >
-          <span className="text-2xl mb-1 block">👍</span>
-          Vote YES
+          AGREE
         </button>
 
         <button
           onClick={() => handleVote(false)}
           disabled={!isReady || isVoting || !wallet}
-          className="py-4 px-6 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed rounded-xl font-semibold text-white shadow-lg hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100"
+          className="py-3 px-4 bg-gradient-to-br from-indigo-800 to-slate-800 hover:from-indigo-700 hover:to-slate-700 disabled:from-gray-700 disabled:to-gray-800 disabled:cursor-not-allowed rounded-xl font-bold text-white text-sm shadow-lg hover:shadow-indigo-500/40 transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100 border border-indigo-500/30 disabled:border-gray-600"
         >
-          <span className="text-2xl mb-1 block">👎</span>
-          Vote NO
+          DISAGREE
         </button>
       </div>
 
       {!isReady && (
-        <p className="text-xs text-center text-yellow-400">
-          ⏳ Initializing encryption...
+        <p className="text-xs text-center text-amber-400">
+          Initializing encryption...
         </p>
       )}
     </div>

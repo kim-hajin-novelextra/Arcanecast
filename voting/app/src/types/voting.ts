@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/voting.json`.
  */
 export type Voting = {
-  "address": "DZDFeQuWe8ULjVUjhY7qvPMHo4D2h8YCetv4VwwwE96X",
+  "address": "AEspuAAzEw9BNq2Qke45vakpPEcsoT7DhDzP6HHuiemU",
   "metadata": {
     "name": "voting",
     "version": "0.1.0",
@@ -94,11 +94,11 @@ export type Voting = {
         {
           "name": "poolAccount",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clockAccount",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "systemProgram",
@@ -106,7 +106,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "pollAcc",
@@ -242,11 +242,11 @@ export type Voting = {
         {
           "name": "poolAccount",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clockAccount",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "systemProgram",
@@ -254,7 +254,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "pollAcc",
@@ -298,56 +298,6 @@ export type Voting = {
       ]
     },
     {
-      "name": "initMultiOptionVoteStatsCallback",
-      "discriminator": [
-        252,
-        150,
-        167,
-        148,
-        83,
-        170,
-        253,
-        190
-      ],
-      "accounts": [
-        {
-          "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
-        },
-        {
-          "name": "compDefAccount"
-        },
-        {
-          "name": "instructionsSysvar",
-          "address": "Sysvar1nstructions1111111111111111111111111"
-        },
-        {
-          "name": "pollAcc",
-          "writable": true
-        }
-      ],
-      "args": [
-        {
-          "name": "output",
-          "type": {
-            "defined": {
-              "name": "computationOutputs",
-              "generics": [
-                {
-                  "kind": "type",
-                  "type": {
-                    "defined": {
-                      "name": "initMultiOptionVoteStatsOutput"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
       "name": "initMultiOptionVoteStatsCompDef",
       "discriminator": [
         212,
@@ -378,7 +328,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "systemProgram",
@@ -386,6 +336,56 @@ export type Voting = {
         }
       ],
       "args": []
+    },
+    {
+      "name": "initMultiOptionVoteStatsV2Callback",
+      "discriminator": [
+        173,
+        192,
+        249,
+        111,
+        98,
+        132,
+        102,
+        227
+      ],
+      "accounts": [
+        {
+          "name": "arciumProgram",
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
+        },
+        {
+          "name": "compDefAccount"
+        },
+        {
+          "name": "instructionsSysvar",
+          "address": "Sysvar1nstructions1111111111111111111111111"
+        },
+        {
+          "name": "pollAcc",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "output",
+          "type": {
+            "defined": {
+              "name": "computationOutputs",
+              "generics": [
+                {
+                  "kind": "type",
+                  "type": {
+                    "defined": {
+                      "name": "initMultiOptionVoteStatsV2Output"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
     },
     {
       "name": "initRevealMultiOptionResultCompDef",
@@ -418,7 +418,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "systemProgram",
@@ -458,7 +458,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "systemProgram",
@@ -498,7 +498,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "systemProgram",
@@ -538,7 +538,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "systemProgram",
@@ -562,7 +562,7 @@ export type Voting = {
       "accounts": [
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "compDefAccount"
@@ -628,7 +628,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "systemProgram",
@@ -715,11 +715,11 @@ export type Voting = {
         {
           "name": "poolAccount",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clockAccount",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "systemProgram",
@@ -727,7 +727,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "pollAcc",
@@ -768,21 +768,21 @@ export type Voting = {
       ]
     },
     {
-      "name": "revealMultiOptionResultCallback",
+      "name": "revealMultiOptionResultV2Callback",
       "discriminator": [
-        40,
-        70,
-        170,
-        124,
-        69,
-        158,
-        190,
-        67
+        157,
+        115,
+        149,
+        2,
+        200,
+        36,
+        54,
+        196
       ],
       "accounts": [
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "compDefAccount"
@@ -803,7 +803,7 @@ export type Voting = {
                   "kind": "type",
                   "type": {
                     "defined": {
-                      "name": "revealMultiOptionResultOutput"
+                      "name": "revealMultiOptionResultV2Output"
                     }
                   }
                 }
@@ -892,11 +892,11 @@ export type Voting = {
         {
           "name": "poolAccount",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clockAccount",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "systemProgram",
@@ -904,7 +904,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "pollAcc",
@@ -953,7 +953,7 @@ export type Voting = {
       "accounts": [
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "compDefAccount"
@@ -1065,11 +1065,11 @@ export type Voting = {
         {
           "name": "poolAccount",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clockAccount",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "systemProgram",
@@ -1077,7 +1077,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "pollAcc",
@@ -1148,7 +1148,7 @@ export type Voting = {
       "accounts": [
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "compDefAccount"
@@ -1263,11 +1263,11 @@ export type Voting = {
         {
           "name": "poolAccount",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clockAccount",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "systemProgram",
@@ -1275,7 +1275,7 @@ export type Voting = {
         },
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "pollAcc",
@@ -1338,21 +1338,21 @@ export type Voting = {
       ]
     },
     {
-      "name": "voteMultiOptionCallback",
+      "name": "voteMultiOptionV2Callback",
       "discriminator": [
-        223,
-        138,
+        197,
+        201,
+        184,
+        176,
         7,
-        233,
-        50,
-        203,
-        221,
-        191
+        51,
+        52,
+        222
       ],
       "accounts": [
         {
           "name": "arciumProgram",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "compDefAccount"
@@ -1377,7 +1377,7 @@ export type Voting = {
                   "kind": "type",
                   "type": {
                     "defined": {
-                      "name": "voteMultiOptionOutput"
+                      "name": "voteMultiOptionV2Output"
                     }
                   }
                 }
@@ -1538,13 +1538,23 @@ export type Voting = {
   "errors": [
     {
       "code": 6000,
-      "name": "invalidFinalizeTx",
-      "msg": "Invalid finalize transaction"
+      "name": "invalidAuthority",
+      "msg": "Invalid authority"
     },
     {
       "code": 6001,
-      "name": "invalidAccount",
-      "msg": "Invalid account"
+      "name": "abortedComputation",
+      "msg": "The computation was aborted"
+    },
+    {
+      "code": 6002,
+      "name": "clusterNotSet",
+      "msg": "Cluster not set"
+    },
+    {
+      "code": 6003,
+      "name": "invalidOptionCount",
+      "msg": "Invalid option count - must be between 2 and 4"
     }
   ],
   "types": [
@@ -1745,10 +1755,6 @@ export type Voting = {
             }
           },
           {
-            "name": "finalizeDuringCallback",
-            "type": "bool"
-          },
-          {
             "name": "cuAmount",
             "type": "u64"
           },
@@ -1879,7 +1885,7 @@ export type Voting = {
       }
     },
     {
-      "name": "initMultiOptionVoteStatsOutput",
+      "name": "initMultiOptionVoteStatsV2Output",
       "docs": [
         "The output of the callback instruction. Provided as a struct with ordered fields",
         "as anchor does not support tuples and tuple structs yet."
@@ -1962,10 +1968,20 @@ export type Voting = {
             }
           },
           {
-            "name": "x25519Pubkey",
+            "name": "utilityPubkeys",
             "type": {
               "defined": {
-                "name": "x25519Pubkey"
+                "name": "setUnset",
+                "generics": [
+                  {
+                    "kind": "type",
+                    "type": {
+                      "defined": {
+                        "name": "utilityPubkeys"
+                      }
+                    }
+                  }
+                ]
               }
             }
           },
@@ -2087,21 +2103,56 @@ export type Voting = {
             "docs": [
               "The poll question (max 100 characters)"
             ],
-            "type": "string"
+            "type": {
+              "array": [
+                "u8",
+                100
+              ]
+            }
           },
           {
-            "name": "options",
+            "name": "option1",
             "docs": [
-              "Poll options (2-4 strings, max 50 characters each)"
+              "Poll options (4 fixed slots, 50 bytes each)"
             ],
             "type": {
-              "vec": "string"
+              "array": [
+                "u8",
+                50
+              ]
+            }
+          },
+          {
+            "name": "option2",
+            "type": {
+              "array": [
+                "u8",
+                50
+              ]
+            }
+          },
+          {
+            "name": "option3",
+            "type": {
+              "array": [
+                "u8",
+                50
+              ]
+            }
+          },
+          {
+            "name": "option4",
+            "type": {
+              "array": [
+                "u8",
+                50
+              ]
             }
           },
           {
             "name": "numOptions",
             "docs": [
-              "Number of options (2-4)"
+              "Number of options actually used (2-4)"
             ],
             "type": "u8"
           }
@@ -2207,6 +2258,9 @@ export type Voting = {
           },
           {
             "name": "plaintextFloat"
+          },
+          {
+            "name": "plaintextPoint"
           }
         ]
       }
@@ -2350,7 +2404,7 @@ export type Voting = {
       }
     },
     {
-      "name": "revealMultiOptionResultOutput",
+      "name": "revealMultiOptionResultV2Output",
       "docs": [
         "The output of the callback instruction. Provided as a struct with ordered fields",
         "as anchor does not support tuples and tuple structs yet."
@@ -2399,6 +2453,39 @@ export type Voting = {
       }
     },
     {
+      "name": "setUnset",
+      "generics": [
+        {
+          "kind": "type",
+          "name": "t"
+        }
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "set",
+            "fields": [
+              {
+                "generic": "t"
+              }
+            ]
+          },
+          {
+            "name": "unset",
+            "fields": [
+              {
+                "generic": "t"
+              },
+              {
+                "vec": "bool"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "name": "signerAccount",
       "type": {
         "kind": "struct",
@@ -2423,6 +2510,50 @@ export type Voting = {
       }
     },
     {
+      "name": "utilityPubkeys",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "x25519Pubkey",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "ed25519VerifyingKey",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "elgamalPubkey",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "pubkeyValidityProof",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
       "name": "voteEvent",
       "type": {
         "kind": "struct",
@@ -2435,7 +2566,7 @@ export type Voting = {
       }
     },
     {
-      "name": "voteMultiOptionOutput",
+      "name": "voteMultiOptionV2Output",
       "docs": [
         "The output of the callback instruction. Provided as a struct with ordered fields",
         "as anchor does not support tuples and tuple structs yet."
@@ -2482,39 +2613,6 @@ export type Voting = {
                 ]
               }
             }
-          }
-        ]
-      }
-    },
-    {
-      "name": "x25519Pubkey",
-      "type": {
-        "kind": "enum",
-        "variants": [
-          {
-            "name": "set",
-            "fields": [
-              {
-                "array": [
-                  "u8",
-                  32
-                ]
-              }
-            ]
-          },
-          {
-            "name": "unset",
-            "fields": [
-              {
-                "array": [
-                  "u8",
-                  32
-                ]
-              },
-              {
-                "vec": "bool"
-              }
-            ]
           }
         ]
       }

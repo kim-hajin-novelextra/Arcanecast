@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
+config({ path: '.env.local' });
+
 import { createClient } from '@supabase/supabase-js';
 import { Connection, Keypair, PublicKey, SystemProgram } from '@solana/web3.js';
 import anchorPkg from '@coral-xyz/anchor';
@@ -22,11 +25,11 @@ const supabase = createClient(
 );
 
 const connection = new Connection('https://api.devnet.solana.com');
-const PROGRAM_ID = new PublicKey('DZDFeQuWe8ULjVUjhY7qvPMHo4D2h8YCetv4VwwwE96X');
+const PROGRAM_ID = new PublicKey('AEspuAAzEw9BNq2Qke45vakpPEcsoT7DhDzP6HHuiemU');
 const ARCIUM_PROGRAM_ID = new PublicKey('BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6');
 const ARCIUM_FEE_POOL_ACCOUNT = new PublicKey('7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3');
 const ARCIUM_CLOCK_ACCOUNT = new PublicKey('FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65');
-const CLUSTER_OFFSET = 1078779259; // Official Arcium devnet cluster
+const CLUSTER_OFFSET = 768109697; // Official Arcium devnet cluster
 
 const keypairPath = '/home/codespace/.config/solana/id.json';
 const secretKey = JSON.parse(readFileSync(keypairPath, 'utf-8'));
@@ -135,7 +138,10 @@ async function run() {
     const nonce = generateNonce();
 
     // Derive all Arcium accounts (use multi-option comp def)
-    const arciumAccounts = deriveArciumAccounts(computationOffset, 'init_multi_option_vote_stats');
+    const arciumAccounts = deriveArciumAccounts(
+      computationOffset,
+      'init_multi_option_vote_stats_v2'
+    );
 
     try {
       const tx = await program.methods

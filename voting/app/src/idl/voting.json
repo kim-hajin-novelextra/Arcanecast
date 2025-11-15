@@ -1,5 +1,5 @@
 {
-  "address": "DZDFeQuWe8ULjVUjhY7qvPMHo4D2h8YCetv4VwwwE96X",
+  "address": "AEspuAAzEw9BNq2Qke45vakpPEcsoT7DhDzP6HHuiemU",
   "metadata": {
     "name": "voting",
     "version": "0.1.0",
@@ -88,11 +88,11 @@
         {
           "name": "pool_account",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clock_account",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "system_program",
@@ -100,7 +100,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "poll_acc",
@@ -236,11 +236,11 @@
         {
           "name": "pool_account",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clock_account",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "system_program",
@@ -248,7 +248,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "poll_acc",
@@ -292,56 +292,6 @@
       ]
     },
     {
-      "name": "init_multi_option_vote_stats_callback",
-      "discriminator": [
-        252,
-        150,
-        167,
-        148,
-        83,
-        170,
-        253,
-        190
-      ],
-      "accounts": [
-        {
-          "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
-        },
-        {
-          "name": "comp_def_account"
-        },
-        {
-          "name": "instructions_sysvar",
-          "address": "Sysvar1nstructions1111111111111111111111111"
-        },
-        {
-          "name": "poll_acc",
-          "writable": true
-        }
-      ],
-      "args": [
-        {
-          "name": "output",
-          "type": {
-            "defined": {
-              "name": "ComputationOutputs",
-              "generics": [
-                {
-                  "kind": "type",
-                  "type": {
-                    "defined": {
-                      "name": "InitMultiOptionVoteStatsOutput"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
       "name": "init_multi_option_vote_stats_comp_def",
       "discriminator": [
         212,
@@ -372,7 +322,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "system_program",
@@ -380,6 +330,56 @@
         }
       ],
       "args": []
+    },
+    {
+      "name": "init_multi_option_vote_stats_v2_callback",
+      "discriminator": [
+        173,
+        192,
+        249,
+        111,
+        98,
+        132,
+        102,
+        227
+      ],
+      "accounts": [
+        {
+          "name": "arcium_program",
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
+        },
+        {
+          "name": "comp_def_account"
+        },
+        {
+          "name": "instructions_sysvar",
+          "address": "Sysvar1nstructions1111111111111111111111111"
+        },
+        {
+          "name": "poll_acc",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "output",
+          "type": {
+            "defined": {
+              "name": "ComputationOutputs",
+              "generics": [
+                {
+                  "kind": "type",
+                  "type": {
+                    "defined": {
+                      "name": "InitMultiOptionVoteStatsV2Output"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
     },
     {
       "name": "init_reveal_multi_option_result_comp_def",
@@ -412,7 +412,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "system_program",
@@ -452,7 +452,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "system_program",
@@ -492,7 +492,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "system_program",
@@ -532,7 +532,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "system_program",
@@ -556,7 +556,7 @@
       "accounts": [
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "comp_def_account"
@@ -622,7 +622,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "system_program",
@@ -709,11 +709,11 @@
         {
           "name": "pool_account",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clock_account",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "system_program",
@@ -721,7 +721,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "poll_acc",
@@ -762,21 +762,21 @@
       ]
     },
     {
-      "name": "reveal_multi_option_result_callback",
+      "name": "reveal_multi_option_result_v2_callback",
       "discriminator": [
-        40,
-        70,
-        170,
-        124,
-        69,
-        158,
-        190,
-        67
+        157,
+        115,
+        149,
+        2,
+        200,
+        36,
+        54,
+        196
       ],
       "accounts": [
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "comp_def_account"
@@ -797,7 +797,7 @@
                   "kind": "type",
                   "type": {
                     "defined": {
-                      "name": "RevealMultiOptionResultOutput"
+                      "name": "RevealMultiOptionResultV2Output"
                     }
                   }
                 }
@@ -886,11 +886,11 @@
         {
           "name": "pool_account",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clock_account",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "system_program",
@@ -898,7 +898,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "poll_acc",
@@ -947,7 +947,7 @@
       "accounts": [
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "comp_def_account"
@@ -1059,11 +1059,11 @@
         {
           "name": "pool_account",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clock_account",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "system_program",
@@ -1071,7 +1071,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "poll_acc",
@@ -1142,7 +1142,7 @@
       "accounts": [
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "comp_def_account"
@@ -1257,11 +1257,11 @@
         {
           "name": "pool_account",
           "writable": true,
-          "address": "7MGSS4iKNM4sVib7bDZDJhVqB6EcchPwVnTKenCY1jt3"
+          "address": "FsWbPQcJQ2cCyr9ndse13fDqds4F2Ezx2WgTL25Dke4M"
         },
         {
           "name": "clock_account",
-          "address": "FHriyvoZotYiFnbUzKFjzRSb2NiaC8RPWY7jtKuKhg65"
+          "address": "AxygBawEvVwZPetj3yPJb9sGdZvaJYsVguET1zFUQkV"
         },
         {
           "name": "system_program",
@@ -1269,7 +1269,7 @@
         },
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "poll_acc",
@@ -1332,21 +1332,21 @@
       ]
     },
     {
-      "name": "vote_multi_option_callback",
+      "name": "vote_multi_option_v2_callback",
       "discriminator": [
-        223,
-        138,
+        197,
+        201,
+        184,
+        176,
         7,
-        233,
-        50,
-        203,
-        221,
-        191
+        51,
+        52,
+        222
       ],
       "accounts": [
         {
           "name": "arcium_program",
-          "address": "BKck65TgoKRokMjQM3datB9oRwJ8rAj2jxPXvHXUvcL6"
+          "address": "Bv3Fb9VjzjWGfX18QTUcVycAfeLoQ5zZN6vv2g3cTZxp"
         },
         {
           "name": "comp_def_account"
@@ -1371,7 +1371,7 @@
                   "kind": "type",
                   "type": {
                     "defined": {
-                      "name": "VoteMultiOptionOutput"
+                      "name": "VoteMultiOptionV2Output"
                     }
                   }
                 }
@@ -1532,13 +1532,23 @@
   "errors": [
     {
       "code": 6000,
-      "name": "InvalidFinalizeTx",
-      "msg": "Invalid finalize transaction"
+      "name": "InvalidAuthority",
+      "msg": "Invalid authority"
     },
     {
       "code": 6001,
-      "name": "InvalidAccount",
-      "msg": "Invalid account"
+      "name": "AbortedComputation",
+      "msg": "The computation was aborted"
+    },
+    {
+      "code": 6002,
+      "name": "ClusterNotSet",
+      "msg": "Cluster not set"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidOptionCount",
+      "msg": "Invalid option count - must be between 2 and 4"
     }
   ],
   "types": [
@@ -1739,10 +1749,6 @@
             }
           },
           {
-            "name": "finalize_during_callback",
-            "type": "bool"
-          },
-          {
             "name": "cu_amount",
             "type": "u64"
           },
@@ -1873,7 +1879,7 @@
       }
     },
     {
-      "name": "InitMultiOptionVoteStatsOutput",
+      "name": "InitMultiOptionVoteStatsV2Output",
       "docs": [
         "The output of the callback instruction. Provided as a struct with ordered fields",
         "as anchor does not support tuples and tuple structs yet."
@@ -1956,10 +1962,20 @@
             }
           },
           {
-            "name": "x25519_pubkey",
+            "name": "utility_pubkeys",
             "type": {
               "defined": {
-                "name": "X25519Pubkey"
+                "name": "SetUnset",
+                "generics": [
+                  {
+                    "kind": "type",
+                    "type": {
+                      "defined": {
+                        "name": "UtilityPubkeys"
+                      }
+                    }
+                  }
+                ]
               }
             }
           },
@@ -2081,21 +2097,56 @@
             "docs": [
               "The poll question (max 100 characters)"
             ],
-            "type": "string"
+            "type": {
+              "array": [
+                "u8",
+                100
+              ]
+            }
           },
           {
-            "name": "options",
+            "name": "option1",
             "docs": [
-              "Poll options (2-4 strings, max 50 characters each)"
+              "Poll options (4 fixed slots, 50 bytes each)"
             ],
             "type": {
-              "vec": "string"
+              "array": [
+                "u8",
+                50
+              ]
+            }
+          },
+          {
+            "name": "option2",
+            "type": {
+              "array": [
+                "u8",
+                50
+              ]
+            }
+          },
+          {
+            "name": "option3",
+            "type": {
+              "array": [
+                "u8",
+                50
+              ]
+            }
+          },
+          {
+            "name": "option4",
+            "type": {
+              "array": [
+                "u8",
+                50
+              ]
             }
           },
           {
             "name": "num_options",
             "docs": [
-              "Number of options (2-4)"
+              "Number of options actually used (2-4)"
             ],
             "type": "u8"
           }
@@ -2201,6 +2252,9 @@
           },
           {
             "name": "PlaintextFloat"
+          },
+          {
+            "name": "PlaintextPoint"
           }
         ]
       }
@@ -2344,7 +2398,7 @@
       }
     },
     {
-      "name": "RevealMultiOptionResultOutput",
+      "name": "RevealMultiOptionResultV2Output",
       "docs": [
         "The output of the callback instruction. Provided as a struct with ordered fields",
         "as anchor does not support tuples and tuple structs yet."
@@ -2393,6 +2447,39 @@
       }
     },
     {
+      "name": "SetUnset",
+      "generics": [
+        {
+          "kind": "type",
+          "name": "T"
+        }
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Set",
+            "fields": [
+              {
+                "generic": "T"
+              }
+            ]
+          },
+          {
+            "name": "Unset",
+            "fields": [
+              {
+                "generic": "T"
+              },
+              {
+                "vec": "bool"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "name": "SignerAccount",
       "type": {
         "kind": "struct",
@@ -2417,6 +2504,50 @@
       }
     },
     {
+      "name": "UtilityPubkeys",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "x25519_pubkey",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "ed25519_verifying_key",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "elgamal_pubkey",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "pubkey_validity_proof",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
       "name": "VoteEvent",
       "type": {
         "kind": "struct",
@@ -2429,7 +2560,7 @@
       }
     },
     {
-      "name": "VoteMultiOptionOutput",
+      "name": "VoteMultiOptionV2Output",
       "docs": [
         "The output of the callback instruction. Provided as a struct with ordered fields",
         "as anchor does not support tuples and tuple structs yet."
@@ -2476,39 +2607,6 @@
                 ]
               }
             }
-          }
-        ]
-      }
-    },
-    {
-      "name": "X25519Pubkey",
-      "type": {
-        "kind": "enum",
-        "variants": [
-          {
-            "name": "Set",
-            "fields": [
-              {
-                "array": [
-                  "u8",
-                  32
-                ]
-              }
-            ]
-          },
-          {
-            "name": "Unset",
-            "fields": [
-              {
-                "array": [
-                  "u8",
-                  32
-                ]
-              },
-              {
-                "vec": "bool"
-              }
-            ]
           }
         ]
       }

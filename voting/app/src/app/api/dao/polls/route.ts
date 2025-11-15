@@ -184,3 +184,52 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+// PATCH - Update poll (for admin actions like converting to voting)
+export async function PATCH(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { id, ...updates } = body;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Poll ID required' },
+        { status: 400 }
+      );
+    }
+
+    if (!supabaseAdmin) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 500 }
+      );
+    }
+
+    const { data: poll, error } = await supabaseAdmin
+      .from('dao_polls')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error updating poll:', error);
+      return NextResponse.json(
+        { error: 'Failed to update poll', details: error.message },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      poll,
+      message: 'Poll updated successfully',
+    });
+  } catch (error) {
+    console.error('Error in PATCH /api/dao/polls:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}

@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 import { AnchorProvider, Program, Wallet } from '@coral-xyz/anchor';
 import { Connection, Keypair, PublicKey } from '@solana/web3.js';
-import idl from '@/types/voting.json';
+import idl from '@/idl/voting.json';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

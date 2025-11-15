@@ -16,32 +16,30 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-8">
-              <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                <div className="text-4xl">🔮</div>
+              <Link href="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity">
                 <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-                    ArcaneCast
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    VeiledCasts
                   </h1>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-sm text-gray-300 font-medium">
                     Confidential Voting Powered by Arcium
                   </p>
                 </div>
               </Link>
               
               {/* Navigation */}
-              <nav className="hidden md:flex items-center gap-6">
-                <Link 
-                  href="/"
-                  className="text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors"
-                >
-                  Polls
-                </Link>
+              <nav className="hidden md:flex items-center gap-8">
                 <Link 
                   href="/dao"
-                  className="text-sm font-medium text-gray-400 hover:text-purple-300 transition-colors flex items-center gap-2"
+                  className="text-lg font-bold text-gray-300 hover:text-purple-300 transition-colors"
                 >
-                  <span>🏛️</span>
-                  <span>DAO Governance</span>
+                  DAO Governance
+                </Link>
+                <Link 
+                  href="/"
+                  className="text-lg font-bold text-purple-400 hover:text-purple-300 transition-colors"
+                >
+                  Opinions
                 </Link>
               </nav>
             </div>
@@ -67,17 +65,15 @@ export default function HomePage() {
         {/* Features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="p-6 bg-gradient-to-br from-purple-900/30 to-transparent rounded-2xl border border-purple-500/20">
-            <div className="text-4xl mb-3">🔐</div>
             <h3 className="text-lg font-bold text-white mb-2">
               End-to-End Encryption
             </h3>
             <p className="text-sm text-gray-400">
-              Votes are encrypted on your device before submission
+              Votes are encrypted before submission
             </p>
           </div>
 
           <div className="p-6 bg-gradient-to-br from-pink-900/30 to-transparent rounded-2xl border border-pink-500/20">
-            <div className="text-4xl mb-3">⚙️</div>
             <h3 className="text-lg font-bold text-white mb-2">
               MPC Computation
             </h3>
@@ -87,7 +83,6 @@ export default function HomePage() {
           </div>
 
           <div className="p-6 bg-gradient-to-br from-purple-900/30 to-transparent rounded-2xl border border-purple-500/20">
-            <div className="text-4xl mb-3">✨</div>
             <h3 className="text-lg font-bold text-white mb-2">
               Authority Control
             </h3>
@@ -108,7 +103,7 @@ export default function HomePage() {
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              📊 View Polls
+              View Polls
             </button>
             <button
               onClick={() => setActiveTab("create")}
@@ -118,7 +113,7 @@ export default function HomePage() {
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              ➕ Create Poll
+              Create Poll
             </button>
           </div>
         </div>
@@ -134,24 +129,7 @@ export default function HomePage() {
               />
             </div>
           ) : (
-            <>
-              {/* Info Box */}
-              <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">ℹ️</span>
-                  <div>
-                    <p className="text-sm text-blue-300 font-semibold mb-1">
-                      Note: Polls are wallet-specific
-                    </p>
-                    <p className="text-xs text-gray-400">
-                      Each wallet can create and manage their own polls. You can only see and vote on polls created by the connected wallet.
-                      This is by design for privacy - each poll creator has full control over their polls.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <PollList />
-            </>
+            <PollList />
           )}
         </div>
       </main>
@@ -161,13 +139,24 @@ export default function HomePage() {
         <div className="container mx-auto px-4 text-center text-gray-400 text-sm">
           <p className="mb-2">
             Built with{" "}
-            <span className="text-purple-400 font-semibold">Arcium</span> •
-            Powered by{" "}
+            <span className="text-purple-400 font-semibold">Arcium {" "}</span>
+            On{" "}
             <span className="text-pink-400 font-semibold">Solana</span>
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 mb-2">
             Your votes are encrypted end-to-end and processed via secure
             multi-party computation
+          </p>
+          <p className="text-xs text-gray-500">
+            Created by{" "}
+            <a 
+              href="https://x.com/EtherPhantasm" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-purple-400 hover:text-purple-300 font-semibold transition-colors"
+            >
+              EtherPhantasm
+            </a>
           </p>
         </div>
       </footer>

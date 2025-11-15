@@ -7,5 +7,6 @@ test-ledger
 .yarn
 encrypted-ixs/arcis_temp_target
 build
+!build/*testnet.arcis
 encrypted-ixs/src/main.rs
 artifacts/

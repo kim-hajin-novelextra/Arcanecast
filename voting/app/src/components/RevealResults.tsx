@@ -131,40 +131,39 @@ export function RevealResults({ poll, onResultRevealed }: RevealResultsProps) {
     const winner = result !== null ? result : (dbRevealStatus?.winner === 'yes');
     
     return (
-      <div className="p-6 bg-gradient-to-br from-purple-900/40 to-pink-900/40 border border-purple-500/30 rounded-xl">
-        <h3 className="text-xl font-bold mb-4 text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-          🎉 Results Revealed!
+      <div className="p-4 bg-gradient-to-br from-indigo-900/40 via-purple-900/40 to-violet-900/40 border border-purple-400/40 rounded-xl backdrop-blur-sm">
+        <h3 className="text-lg font-bold mb-3 text-center bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
+          Results Revealed
         </h3>
         <div className="text-center">
           <div
-            className={`inline-block px-8 py-6 rounded-2xl ${
+            className={`inline-block px-6 py-4 rounded-xl shadow-lg ${
               winner
-                ? "bg-green-500/20 border-2 border-green-500"
-                : "bg-red-500/20 border-2 border-red-500"
+                ? "bg-gradient-to-br from-purple-600/30 to-purple-700/30 border-2 border-purple-400/50"
+                : "bg-gradient-to-br from-indigo-700/30 to-slate-700/30 border-2 border-indigo-400/50"
             }`}
           >
-            <div className="text-6xl mb-3">{winner ? "👍" : "👎"}</div>
-            <div className="text-3xl font-bold">
+            <div className="text-xl font-black mb-1">
               {winner ? (
-                <span className="text-green-400">YES WINS</span>
+                <span className="text-purple-300">Majority AGREED</span>
               ) : (
-                <span className="text-red-400">NO WINS</span>
+                <span className="text-indigo-300">Majority DISAGREED</span>
               )}
             </div>
+            <p className="text-sm text-gray-300 font-medium">
+              Votes have been finalised
+            </p>
           </div>
-          <p className="text-sm text-gray-400 mt-4">
-            The majority voted <strong>{winner ? "YES" : "NO"}</strong>
-          </p>
           {dbRevealStatus?.totalVotes && (
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-gray-300 mt-3 font-medium">
               {dbRevealStatus.totalVotes} total participants
             </p>
           )}
-          <p className="text-xs text-gray-500 mt-1">
-            Note: Individual vote counts remain confidential 🔒
+          <p className="text-xs text-gray-400 mt-2">
+            Individual vote counts remain confidential
           </p>
           {dbRevealStatus?.revealedAt && (
-            <p className="text-xs text-gray-600 mt-2">
+            <p className="text-xs text-gray-500 mt-3">
               Revealed on {new Date(dbRevealStatus.revealedAt).toLocaleString()}
             </p>
           )}
@@ -175,11 +174,11 @@ export function RevealResults({ poll, onResultRevealed }: RevealResultsProps) {
 
   if (revealState) {
     return (
-      <div className="p-6 bg-blue-500/10 border border-blue-500/30 rounded-xl">
+      <div className="p-5 bg-indigo-500/10 border border-indigo-500/30 rounded-xl">
         <div className="flex items-center justify-center gap-3">
-          <div className="w-8 h-8 border-2 border-blue-400/30 border-t-blue-400 rounded-full animate-spin" />
+          <div className="w-7 h-7 border-2 border-indigo-400/30 border-t-indigo-400 rounded-full animate-spin" />
           <div className="text-center">
-            <p className="font-medium text-blue-400">
+            <p className="font-medium text-indigo-300 text-sm">
               {revealState.status === "queued" && "Queuing reveal computation..."}
               {revealState.status === "processing" && "Decrypting votes via MPC..."}
             </p>
@@ -196,7 +195,7 @@ export function RevealResults({ poll, onResultRevealed }: RevealResultsProps) {
     return (
       <div className="p-4 bg-gray-800/50 border border-gray-700 rounded-xl">
         <p className="text-sm text-gray-400 text-center">
-          🔒 Results can only be revealed by the poll creator
+          Results can only be revealed by the poll creator
         </p>
       </div>
     );
@@ -206,12 +205,9 @@ export function RevealResults({ poll, onResultRevealed }: RevealResultsProps) {
     <button
       onClick={handleReveal}
       disabled={!wallet}
-      className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed rounded-xl font-semibold text-white shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100"
+      className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed rounded-xl font-semibold text-white text-sm shadow-lg hover:shadow-purple-500/40 transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100"
     >
-      <span className="flex items-center justify-center gap-2">
-        <span className="text-xl">🔓</span>
-        Reveal Results
-      </span>
+      Reveal Results
     </button>
   );
 }

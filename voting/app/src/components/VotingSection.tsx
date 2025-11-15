@@ -13,13 +13,17 @@ interface DAOPoll {
   onchain_id: number | null;
   deadline: string;
   created_at: string;
+  status: string;
+  vote_counts?: number[] | null;
+  revealed_at?: string | null;
 }
 
 // Admin wallet for testing reveal functionality
-const ADMIN_WALLET = '5sQaKhsTc8RvgnNgLCYB2Y44dirFBZxQWKZy7nVomYe4';
+const ADMIN_WALLET = 'CzQKWMvkvw5PMqQ7gLFbzZoqe65dWbxyH1TrQsho4tpa';
 
 export default function VotingSection() {
-  const { publicKey, connected } = useWallet();
+  const wallet = useWallet();
+  const { publicKey, connected } = wallet;
   const { connection } = useConnection();
   const { cipher, isReady, clientPublicKey } = useArcium();
   const [polls, setPolls] = useState<DAOPoll[]>([]);
@@ -69,7 +73,7 @@ export default function VotingSection() {
         );
         if (response.ok) {
           const data = await response.json();
-          if (data.has_voted) {
+          if (data.hasVoted) { // Fixed: was has_voted, should be hasVoted
             voted.add(poll.id);
           }
         }
@@ -103,7 +107,7 @@ export default function VotingSection() {
 
     try {
       // Initialize voting service
-      const votingService = new DAOVotingService(connection, { publicKey });
+      const votingService = new DAOVotingService(connection, wallet);
 
       // Cast encrypted vote with status updates
       const signature = await votingService.castMultiOptionVote(
@@ -194,38 +198,52 @@ export default function VotingSection() {
     }
 
     const poll = polls.find(p => p.id === pollId);
-    if (!poll || !poll.onchain_id) {
+    if (!poll || poll.onchain_id === null) {
       toast.error('Poll not found on-chain');
       return;
     }
 
     setRevealingPollId(pollId);
-    const toastId = toast.loading('Revealing results...');
+    const toastId = toast.loading('Queuing reveal computation...');
 
     try {
-      // Call auto-reveal cron endpoint (it will process this poll)
-      const response = await fetch('/api/cron/auto-reveal', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CRON_SECRET || '+4POpZLg5ljQ6DhEH4unOAGDh/pKsjswdiRxQoF4nik='}`,
-          'Content-Type': 'application/json',
-        },
+      // Initialize voting service with connected wallet
+      const votingService = new DAOVotingService(connection, wallet);
+
+      toast.loading('Waiting for MPC to decrypt votes...', { id: toastId });
+
+      // Reveal the poll - this now waits for the event and returns vote counts
+      const voteCounts = await votingService.revealMultiOptionPoll(poll.onchain_id);
+
+      console.log(`[Admin Reveal] Vote counts:`, voteCounts);
+
+      // Find winner
+      const maxVotes = Math.max(...voteCounts);
+      const winnerIndex = voteCounts.indexOf(maxVotes);
+      const winnerOption = poll.options[winnerIndex];
+
+      console.log(`[Admin Reveal] Winner: ${winnerOption} with ${maxVotes} votes`);
+
+      // Save results to database
+      toast.loading('Saving results to database...', { id: toastId });
+      
+      const saveResponse = await fetch(`/api/dao/polls/${pollId}/reveal`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ voteCounts }),
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to reveal results');
+      if (!saveResponse.ok) {
+        throw new Error('Failed to save results to database');
       }
 
-      const result = await response.json();
-      console.log('[Admin Reveal] Result:', result);
-
-      toast.success('Results revealed! Check Completed section.', { id: toastId, duration: 4000 });
+      toast.success(
+        `Results revealed! Winner: ${winnerOption} with ${maxVotes} votes`,
+        { id: toastId, duration: 5000 }
+      );
       
-      // Refresh polls to update UI
-      setTimeout(() => {
-        fetchPolls();
-      }, 2000);
+      // Refresh polls to update UI with saved data
+      await fetchPolls();
 
     } catch (error: any) {
       console.error('Error revealing:', error);
@@ -304,13 +322,13 @@ export default function VotingSection() {
       {connected && isReady && (
         <div className="mb-6 bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
           <div className="flex items-start gap-3">
-            <span className="text-2xl">🔒</span>
+            <span className="text-2xl"></span>
             <div className="flex-1">
               <h4 className="text-sm font-semibold text-blue-300 mb-1">
                 Confidential Voting Ready
               </h4>
               <p className="text-xs text-gray-400">
-                Your vote is encrypted using MPC technology. Only the final counts are revealed, never individual votes. Earn 3 points for participating.
+                Your vote is encrypted using MPC technology.
               </p>
             </div>
           </div>
@@ -331,12 +349,38 @@ export default function VotingSection() {
             const hasVoted = votedPolls.has(poll.id);
             const isVoting = votingPollId === poll.id;
             const timeRemaining = getTimeRemaining(poll.deadline);
+            const isRevealed = poll.status === 'completed' && poll.vote_counts;
+
+            // Calculate percentages if revealed
+            let totalVotes = 0;
+            let percentages: number[] = [];
+            let winnerIndex = -1;
+            
+            if (isRevealed && poll.vote_counts) {
+              totalVotes = poll.vote_counts.reduce((sum, count) => sum + count, 0);
+              percentages = poll.vote_counts.map(count => 
+                totalVotes > 0 ? (count / totalVotes) * 100 : 0
+              );
+              const maxVotes = Math.max(...poll.vote_counts);
+              winnerIndex = poll.vote_counts.indexOf(maxVotes);
+            }
 
             return (
               <div
                 key={poll.id}
                 className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 backdrop-blur-sm"
               >
+                {/* Voted Badge at Top */}
+                {hasVoted && !isRevealed && (
+                  <div className="mb-4 bg-gradient-to-r from-green-900/30 to-emerald-900/30 border border-green-500/30 rounded-lg p-3 flex items-center gap-3">
+                    <span className="text-2xl">✓</span>
+                    <div>
+                      <h4 className="text-sm font-semibold text-green-400">Vote Recorded</h4>
+                      <p className="text-xs text-gray-400">You have voted on this poll.</p>
+                    </div>
+                  </div>
+                )}
+
                 {/* Header with Timer */}
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="text-xl font-semibold text-white flex-1">
@@ -350,57 +394,103 @@ export default function VotingSection() {
                   </div>
                 </div>
 
-                {/* Voting Options */}
-                <div className="space-y-3 mb-4">
-                  {poll.options.map((option, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleVote(poll.id, idx)}
-                      disabled={!connected || !isReady || hasVoted || isVoting}
-                      className={`w-full px-6 py-4 rounded-lg text-left transition-all border-2 ${
-                        hasVoted
-                          ? 'bg-gray-900/50 border-gray-700 text-gray-500 cursor-not-allowed'
-                          : !isReady
-                          ? 'bg-gray-900/50 border-gray-700 text-gray-500 cursor-not-allowed'
-                          : 'bg-gray-900/70 border-gray-600 hover:border-purple-500 hover:bg-purple-900/20 text-white'
-                      } ${isVoting ? 'opacity-50 cursor-wait' : ''}`}
-                    >
-                      <div className="flex items-center justify-between">
+                {/* Voting Options or Results */}
+                {isRevealed ? (
+                  /* Results Display */
+                  <div className="space-y-3 mb-4">
+                    <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-500/30 rounded-lg p-4 mb-4">
+                      <h4 className="text-lg font-bold text-center bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+                        🎉 Results Revealed!
+                      </h4>
+                      <p className="text-sm text-gray-400 text-center">
+                        Total Votes: {totalVotes}
+                      </p>
+                    </div>
+
+                    {poll.options.map((option, idx) => {
+                      const isWinner = idx === winnerIndex;
+                      const percentage = percentages[idx] || 0;
+
+                      return (
+                        <div
+                          key={idx}
+                          className={`relative px-6 py-4 rounded-lg border-2 overflow-hidden ${
+                            isWinner
+                              ? 'border-purple-500 bg-purple-900/20'
+                              : 'border-gray-600 bg-gray-900/50'
+                          }`}
+                        >
+                          {/* Progress bar background */}
+                          <div
+                            className={`absolute inset-0 ${
+                              isWinner ? 'bg-purple-500/20' : 'bg-purple-500/10'
+                            } transition-all duration-1000 ease-out`}
+                            style={{ width: `${percentage}%` }}
+                          />
+
+                          {/* Content */}
+                          <div className="relative flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <span className="font-medium text-white">{option}</span>
+                            </div>
+                            <div className="text-right">
+                              <div className={`text-2xl font-bold ${
+                                isWinner ? 'text-purple-400' : 'text-white'
+                              }`}>
+                                {percentage.toFixed(1)}%
+                              </div>
+                              <div className="text-xs text-gray-400">
+                                {poll.vote_counts![idx]} votes
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  /* Voting Options */
+                  <div className="space-y-3 mb-4">
+                    {poll.options.map((option, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleVote(poll.id, idx)}
+                        disabled={!connected || !isReady || hasVoted || isVoting}
+                        className={`w-full px-6 py-4 rounded-lg text-left transition-all border-2 ${
+                          hasVoted
+                            ? 'bg-gray-900/50 border-gray-700 text-gray-500 cursor-not-allowed'
+                            : !isReady
+                            ? 'bg-gray-900/50 border-gray-700 text-gray-500 cursor-not-allowed'
+                            : 'bg-gray-900/70 border-gray-600 hover:border-purple-500 hover:bg-purple-900/20 text-white'
+                        } ${isVoting ? 'opacity-50 cursor-wait' : ''}`}
+                      >
                         <div className="flex items-center gap-3">
-                          <span className="text-2xl font-bold text-purple-400">
-                            {String.fromCharCode(65 + idx)}
-                          </span>
                           <span className="font-medium">{option}</span>
                         </div>
-                        {hasVoted && (
-                          <span className="text-green-400 text-sm">✓ Voted</span>
-                        )}
-                      </div>
-                    </button>
-                  ))}
-                </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
 
                 {/* Footer */}
                 <div className="flex justify-between items-center pt-4 border-t border-gray-700">
                   <div className="text-sm text-gray-400">
-                    Started {new Date(poll.created_at).toLocaleDateString()}
+                    {isRevealed && poll.revealed_at ? (
+                      <span>Revealed {new Date(poll.revealed_at).toLocaleDateString()}</span>
+                    ) : (
+                      <span>Started {new Date(poll.created_at).toLocaleDateString()}</span>
+                    )}
                   </div>
                   
                   <div className="flex items-center gap-4">
-                    {!connected && (
+                    {!connected && !isRevealed && (
                       <div className="text-gray-500 text-sm">
                         Connect wallet to vote
                       </div>
                     )}
-                    
-                    {connected && hasVoted && !isAdmin && (
-                      <div className="text-green-400 text-sm font-medium">
-                        ✓ You voted on this poll
-                      </div>
-                    )}
 
-                    {/* Admin Reveal Button */}
-                    {isAdmin && (
+                    {/* Admin Reveal Button - only show if not revealed */}
+                    {isAdmin && !isRevealed && (
                       <button
                         onClick={() => handleAdminReveal(poll.id)}
                         disabled={revealingPollId === poll.id}

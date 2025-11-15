@@ -44,7 +44,7 @@ mod circuits {
     /// # Arguments
     /// * `num_options` - Number of options in the poll (must be 2-4)
     #[instruction]
-    pub fn init_multi_option_vote_stats(
+    pub fn init_multi_option_vote_stats_v2(
         mxe: Mxe,
         num_options: u8,
     ) -> Enc<Mxe, MultiOptionVoteStats> {
@@ -98,7 +98,7 @@ mod circuits {
     /// # Returns
     /// Updated encrypted vote statistics with the new vote included
     #[instruction]
-    pub fn vote_multi_option(
+    pub fn vote_multi_option_v2(
         vote_ctxt: Enc<Shared, MultiOptionUserVote>,
         vote_stats_ctxt: Enc<Mxe, MultiOptionVoteStats>,
     ) -> Enc<Mxe, MultiOptionVoteStats> {
@@ -145,7 +145,7 @@ mod circuits {
     /// Array of vote counts [count1, count2, count3, count4]
     /// Unused option slots will have count of 0
     #[instruction]
-    pub fn reveal_multi_option_result(
+    pub fn reveal_multi_option_result_v2(
         vote_stats_ctxt: Enc<Mxe, MultiOptionVoteStats>,
     ) -> [u64; 4] {
         let vote_stats = vote_stats_ctxt.to_arcis();

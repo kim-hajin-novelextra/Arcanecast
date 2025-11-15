@@ -34,7 +34,7 @@ async function main() {
   });
   anchor.setProvider(provider);
 
-  const programId = new PublicKey("DZDFeQuWe8ULjVUjhY7qvPMHo4D2h8YCetv4VwwwE96X");
+  const programId = new PublicKey("AEspuAAzEw9BNq2Qke45vakpPEcsoT7DhDzP6HHuiemU");
   const idl = JSON.parse(fs.readFileSync("target/idl/voting.json", "utf8"));
   const program = new Program(idl, provider) as Program<Voting>;
 
@@ -43,10 +43,10 @@ async function main() {
   console.log("Program ID:", programId.toString());
 
   // Initialize multi-option poll comp defs
-  console.log("\n=== Multi-Option Poll Computation Definitions ===");
-  await initCompDef(program, owner, "init_multi_option_vote_stats", "initMultiOptionVoteStatsCompDef");
-  await initCompDef(program, owner, "vote_multi_option", "initVoteMultiOptionCompDef");
-  await initCompDef(program, owner, "reveal_multi_option_result", "initRevealMultiOptionResultCompDef");
+  console.log("\n=== Multi-Option Poll Computation Definitions (v2 - with plaintext u8) ===");
+  await initCompDef(program, owner, "init_multi_option_vote_stats_v2", "initMultiOptionVoteStatsCompDef");
+  await initCompDef(program, owner, "vote_multi_option_v2", "initVoteMultiOptionCompDef");
+  await initCompDef(program, owner, "reveal_multi_option_result_v2", "initRevealMultiOptionResultCompDef");
 
   console.log("\n✅ All multi-option computation definitions initialized successfully!");
   console.log("You can now create multi-option DAO polls on-chain.");
